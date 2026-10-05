@@ -9,12 +9,15 @@ This is a working baseline and a progress update, not the final project submissi
 
 > **Want to skip training?** Jump directly to
 > [Option B: evaluate the cached best model](#option-b-skip-training-and-evaluate-the-cached-best-model).
-> This is the optional quick-start path and only requires running selected notebook cells.
+> This optional quick-start path downloads the published checkpoint and only requires
+> running selected notebook cells.
 
 ## Files
 
 - `baseline.ipynb`: the complete training and evaluation pipeline.
-- `best_bert_mlp.pt`: the best checkpoint selected by validation macro-F1.
+- [`best_bert_mlp.pt`](https://github.com/RayneYael/Banking77-Classification/releases/tag/Baseline-BERT-v1):
+  the best checkpoint selected by validation macro-F1, distributed through the
+  `Baseline-BERT-v1` GitHub Release rather than the Git repository.
 - `requirements-baseline.txt`: pinned Python dependencies from the environment used to
   run the notebook.
 
@@ -96,6 +99,32 @@ The saved run reached validation macro-F1 **0.8924** at epoch 5.
 
 ## Option B: skip training and evaluate the cached best model
 
+First, open a terminal in the repository root and download both published Release assets:
+
+```bash
+curl -fL -O \
+  https://github.com/RayneYael/Banking77-Classification/releases/download/Baseline-BERT-v1/best_bert_mlp.pt
+
+curl -fL -O \
+  https://github.com/RayneYael/Banking77-Classification/releases/download/Baseline-BERT-v1/SHA256SUMS.txt
+```
+
+Verify the downloaded checkpoint before using it:
+
+```bash
+sha256sum -c SHA256SUMS.txt
+```
+
+The expected output is:
+
+```text
+best_bert_mlp.pt: OK
+```
+
+If `curl` is unavailable, download both files manually from the
+[`Baseline-BERT-v1` Release](https://github.com/RayneYael/Banking77-Classification/releases/tag/Baseline-BERT-v1)
+and place them in the repository root.
+
 Cell numbers below are **zero-based positional indices**: the first cell in the notebook
 is cell 0. Use the first comment shown below as an additional visual check.
 
@@ -163,8 +192,9 @@ checkpoint file.
 - `MLP_HIDDEN_SIZE` and `DROPOUT` are currently declared in the hyperparameter cell but
   are not used by the model construction code.
 - The checkpoint is about 418 MiB, which exceeds GitHub's normal 100 MiB per-file limit.
-  If the repository is shared through GitHub, distribute it through Git LFS or a separate
-  shared download location and retain the filename and checksum above.
+  It is therefore distributed as an asset of the
+  [`Baseline-BERT-v1` GitHub Release](https://github.com/RayneYael/Banking77-Classification/releases/tag/Baseline-BERT-v1)
+  and is intentionally excluded from normal Git history.
 - The notebook's saved dataset output refers to Banking77 dataset configuration version
   `1.1.0`. Keeping the pinned `datasets` version and the same dataset source is recommended
   for reproduction.
